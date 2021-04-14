@@ -20,11 +20,21 @@ class DateInformation:
 
 
     def get_season(self, hemisphere: str="south") -> str:
-        southern_seasons = {0: "Spring", 1: "Winter", 2: "Autumn", 3: "Summer"}
-        northern_seasons = {0: "Autumn", 1: "Summer", 2: "Spring", 3: "Winter"}
-        season_modulus = (self.__date.month + 2) % 4
+        northern_seasons = {1: "Winter", 2: "Spring", 3: "Summer", 4: "Autumn"}
+        southern_seasons = {1: "Summer", 2: "Autumn", 3: "Winter", 4: "Spring"}
+
+        month_number = self.__date.month
+        season_number = 0
+        if month_number == 12 or month_number < 3:
+            season_number = 1
+        elif month_number >= 3 and month_number < 6:
+            season_number = 2
+        elif month_number >= 6 and month_number < 9:
+            season_number = 3
+        else:
+            season_number = 4
 
         if hemisphere == "south":
-            return southern_seasons.get(season_modulus)
+            return southern_seasons.get(season_number)
         elif hemisphere == "north":
-            return northern_seasons.get(season_modulus)
+            return northern_seasons.get(season_number)
